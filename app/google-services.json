@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "931677121416",
+    "project_id": "personalmobileproject",
+    "storage_bucket": "personalmobileproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:931677121416:android:4b93657bf76c621713283d",
+        "android_client_info": {
+          "package_name": "com.cookandroid.personal_mobile_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "931677121416-ndfdnd7s05el9nu345jia8jj01rqc1q7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAjXGM_4gK9xZFZCoL3RWCo4Co7Kqf0zA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "931677121416-ndfdnd7s05el9nu345jia8jj01rqc1q7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

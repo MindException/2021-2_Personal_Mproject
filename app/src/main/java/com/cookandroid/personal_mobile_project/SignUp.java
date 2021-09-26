@@ -1,5 +1,7 @@
 package com.cookandroid.personal_mobile_project;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,9 +10,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.InputMismatchException;
 
@@ -37,6 +43,16 @@ public class SignUp extends AppCompatActivity {
     String snickname = null;
     String sphonenum = null;
     long iphonenum = 0;
+
+    //중복값 판별
+    /*
+           0 = 중복이 발생하지 않음
+           1 = 아이디가 중복 발생
+           2 = 닉네임이 중복 발생
+           3 = 전화번호 중복 발생
+
+     */
+    int detect = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,23 +115,65 @@ public class SignUp extends AppCompatActivity {
                     }
 
                     //여기까지 정보가 전부 저장됨
+                    detect = 0;
+                    myRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot snapshot) {
+                            //중복 데이터부터 검색
+                            for(DataSnapshot ds1 : snapshot.getChildren()){
+                                for(DataSnapshot ds2 : ds1.getChildren()){       //push로 만든 키값은  이렇게 2번 해줘야 한다.
 
-                    if(detect() == 0){      //중복이 발생하지 않았으니 서버에 정보를 저장한다.
+                                    User checkUser = ds2.getValue(User.class);
+                                    if(sid.equals(checkUser.userid)){
+                                        id.setText("");
+                                        id.setHint("이미 있는 아이디입니다.");
+                                        detect = 1;
+                                        break;
+                                    }
+                                    if(snickname.equals(checkUser.nickname)){
+                                        System.out.println("안들어옴?");
+                                        nickname.setText("");
+                                        nickname.setHint("이미 있는 닉네임입니다.");
+                                        detect = 2;
+                                        break;
+                                    }
 
-                        user = new User(sid, spasswd, snickname, sphonenum);        //유저 정보 인스턴스
-                        myRef.child("User").push().setValue(user);                  //서버에 저장
-
-                        Intent registIntent = new Intent(SignUp.this, Login.class);
-                        //이거 아래 2개 해줘야 뒤로가기 버튼 눌러도 뒤로 안가진다.
-                        registIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        registIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        //시작
-                        startActivity(registIntent);
+                                    if(sphonenum.equals(checkUser.phone_num)){
+                                        phonenum.setText("");
+                                        phonenum.setHint("이미 가입한 전화번호입니다.");
+                                        detect = 3;
+                                        break;
+                                    }
 
 
-                    }else{
-                        //중복 발생
-                    }
+
+
+                                }
+                                if(detect != 0)break;
+                            }//검사 끝
+
+                            if(detect == 0){//중복이 없음으로 서버에 저장
+
+                                user = new User(sid, spasswd, snickname, sphonenum);        //유저 정보 인스턴스
+                                myRef.child("User").push().setValue(user);                  //서버에 저장
+
+                                Intent registIntent = new Intent(SignUp.this, Login.class);
+                                //이거 아래 2개 해줘야 뒤로가기 버튼 눌러도 뒤로 안가진다.
+                                registIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                registIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                //시작
+                                startActivity(registIntent);
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+
+                        }
+                    });
+
+
 
 
                 }catch(PhoneException phoneevent) {        //전화번호가 11자리가 안 맞을 경우
@@ -161,22 +219,6 @@ public class SignUp extends AppCompatActivity {
 
     }
 
-    int  detect(){  //중복 검사
-        /*
-                1.아이디 중복 발생 1
-                2.별명 중복 발생 2
-                3.전화번호 중복 발생 3
-                4.중복 없을경우 0
-         */
 
-
-
-
-
-
-
-        return 0;
-
-    }
 
 }

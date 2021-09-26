@@ -14,6 +14,10 @@ public class User {     //회원정보
     public List groups = null;             //참가한 그룹 리스트
     public List end_groups = null;         //종료된 그룹 리스트
 
+    public User(){
+
+    }
+
     public User(String id, String passwd, String nickname, String phone_num){     //회원가입에서 사용됨
 
         userid = id;
@@ -22,5 +26,6 @@ public class User {     //회원정보
         this.phone_num = phone_num;
 
     }
+
 
 }

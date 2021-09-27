@@ -116,7 +116,7 @@ public class SignUp extends AppCompatActivity {
 
                     //여기까지 정보가 전부 저장됨
                     detect = 0;
-                    myRef.addValueEventListener(new ValueEventListener() {
+                    myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot snapshot) {
                             //중복 데이터부터 검색

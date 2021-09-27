@@ -7,7 +7,7 @@
     tools:context=".SignUp"
     android:weightSum="10"
     android:orientation="vertical"
-    android:background="#FCE138">
+    android:background="#F8D753">
 
     <LinearLayout
 
@@ -57,7 +57,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="7"
-            android:background="#EAA923"
+            android:background="#F0BE27"
             android:weightSum="10"
             android:orientation="horizontal"
             >
@@ -75,7 +75,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="8"
                 android:hint="아이디"
-                android:background="#EAA923">
+                android:background="#F0BE27">
 
             </EditText>
 
@@ -112,7 +112,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="7"
-            android:background="#EAA923"
+            android:background="#F0BE27"
             android:weightSum="10"
             android:orientation="horizontal"
             >
@@ -130,7 +130,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="8"
                 android:hint= "비밀번호"
-                android:background="#EAA923">
+                android:background="#F0BE27">
 
             </EditText>
 
@@ -168,7 +168,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="7"
-            android:background="#EAA923"
+            android:background="#F0BE27"
             android:weightSum="10"
             android:orientation="horizontal"
             >
@@ -186,7 +186,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="8"
                 android:hint="별명"
-                android:background="#EAA923">
+                android:background="#F0BE27">
 
             </EditText>
 
@@ -223,7 +223,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="7"
-            android:background="#EAA923"
+            android:background="#F0BE27"
             android:weightSum="10"
             android:orientation="horizontal"
             >
@@ -241,7 +241,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="8"
                 android:hint="전화번호(숫자만 입력하시오)"
-                android:background="#EAA923">
+                android:background="#F0BE27">
 
             </EditText>
 

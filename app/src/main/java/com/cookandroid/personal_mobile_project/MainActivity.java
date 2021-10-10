@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 //이거 아래 2개 해줘야 뒤로가기 버튼 눌러도 뒤로 안가진다.
                 loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                loginIntent.putExtra("mykey",mykey);
                 //시작
                 startActivity(loginIntent);
 

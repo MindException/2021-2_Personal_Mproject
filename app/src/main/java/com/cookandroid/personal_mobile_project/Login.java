@@ -116,7 +116,7 @@ public class Login extends AppCompatActivity {
                     }
                 });
 
-            }
+            }//클릭
         });
 
 

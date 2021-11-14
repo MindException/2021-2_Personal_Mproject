@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".MyPAge"
     android:weightSum="10"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#F8D753">
 
 
     <LinearLayout
@@ -25,7 +26,8 @@
                 android:id="@+id/myimg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop">
+                android:scaleType="centerCrop"
+                android:background="@drawable/imageshape">
 
             </ImageView>
 

@@ -13,7 +13,7 @@ public class UserInfo {
     public List estimate_people = null;         //평점을 부여한 사람 저장
     public String img = null;                     //이진 파일로 실제 이미지가 여기 들어 있다.
 
-    public List groups = null;                  //참가한 그룹 리스트
+    public List groups = null;                  //진행 중인 그룹 리스트
     public List end_groups = null;              //종료된 그룹 리스트
 
     UserInfo(){

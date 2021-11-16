@@ -71,6 +71,7 @@ public class MyPAge extends AppCompatActivity {
                     byte[] bytes = UserInfo.binaryStringToByteArray(userInfo.img);
                     bmp = BitmapFactory.decodeByteArray(bytes, 0 , bytes.length);
                     iv.setImageBitmap(bmp);
+                    iv.setClipToOutline(true);              //모양에 맞게 사진 자르기
 
                 }
 

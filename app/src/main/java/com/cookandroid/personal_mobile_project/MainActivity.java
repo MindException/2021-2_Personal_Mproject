@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         getMyinfo();
 
         moveMyPage();
+        createGroup();
 
     }
 
@@ -62,6 +63,28 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
+    }
+
+    void createGroup(){     //그룹 생성
+
+
+
+
+
+
+
+
+    }
+
+    void joinGroup(){
+
+
+
+
+
+
 
 
     }

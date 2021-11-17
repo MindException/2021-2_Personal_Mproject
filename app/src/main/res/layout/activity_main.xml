@@ -16,6 +16,34 @@
         android:text="마이페이지 버튼">
 
     </Button>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"></TextView>
+
+    <Button
+        android:id="@+id/create_button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="그룹 생성 버튼">
+
+    </Button>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"></TextView>
+
+    <Button
+        android:id="@+id/join_button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="그룹 참여 버튼">
+
+    </Button>
 
 
 

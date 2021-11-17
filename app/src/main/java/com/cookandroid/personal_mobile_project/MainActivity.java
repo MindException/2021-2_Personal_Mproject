@@ -23,9 +23,10 @@ public class MainActivity extends AppCompatActivity {
 
     //나의 고유번호를 저장한다.
     private String mykey;
-    public UserInfo myinfo;
+    private UserInfo myinfo;
     private FirebaseDatabase database;
     private DatabaseReference myRef;
+    private int checkme = 0;
 
     //임시 그룹이다.
     String testgroup = "-MogdnSpcaG4Rvwd54vK";
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         moveMyPage();
         createGroup();
+        joinGroup();
 
     }
 
@@ -58,8 +60,7 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot snapshot) {
 
                 myinfo = snapshot.getValue(UserInfo.class);
-                //이미지 기본 세팅(완성)
-                System.out.println(myinfo.img);
+
 
 
             }
@@ -164,7 +165,42 @@ public class MainActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                         Group a = snapshot.getValue(Group.class);
-                        System.out.println(a.users.get(0).toString());
+
+                        for(int i = 0; i < a.users.size(); i++){
+
+                            System.out.println( i+ "번 " + a.users.get(i).toString());
+
+                            if(mykey.equals(a.users.get(i).toString())){      //참여자 키에서 자신이 이미 있다면
+
+                                System.out.println("들어옴 여기");
+                                checkme = 1;                //자신을 발견한다.
+
+                            }
+                        }
+
+                        if(checkme == 0){       //자신을 발견하지 못한 경우 추가한다.
+
+                            a.users.add(mykey);         //자신의 키를 그룹에 추가
+                            myRef.child("Group").child(testgroup).setValue(a);      //서버에 그룹 저장
+
+                            if(myinfo.groups == null){  //그룹이 없어서 비어있다면
+
+                                myinfo.groups = new ArrayList<String>();
+                                myinfo.groups.add(testgroup);
+
+
+                            }else{
+
+                                myinfo.groups.add(testgroup);       //자신의 정보에 그룹 키 저장
+
+                            }
+                            myRef.child("UserInfo").child(mykey).setValue(myinfo);  //서버에 사용자 정보 저장
+
+                        }
+
+
+                        checkme = 0;
+
 
 
                     }
@@ -174,13 +210,8 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
-
             }
         });
-
-
-
-
 
 
     }

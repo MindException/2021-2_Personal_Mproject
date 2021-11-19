@@ -24,6 +24,17 @@ public class ViewHolderChatRoom extends RecyclerView.ViewHolder {
         date = (TextView)itemView.findViewById(R.id.date);
         time = (TextView)itemView.findViewById(R.id.time);
 
+        itemView.setOnClickListener(new View.OnClickListener() {            //클릭은 여기다가 한다.
+            @Override
+            public void onClick(View v) {
+
+                System.out.println("눌림");
+
+
+
+            }
+        });
+
     }
 
     public void onBind(Group gp){

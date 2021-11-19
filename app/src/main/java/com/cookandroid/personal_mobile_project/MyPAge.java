@@ -1,6 +1,9 @@
 package com.cookandroid.personal_mobile_project;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,7 +12,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,6 +25,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyPAge extends AppCompatActivity {
 
@@ -30,8 +37,11 @@ public class MyPAge extends AppCompatActivity {
     ImageView iv;
     private int requestCode;
     private UserInfo userInfo;
-    private Group group;
+    private ArrayList<String> groups_name = new ArrayList<String>();       //이름을 임시저장
+    private ArrayList<Group> groups = null;
     private String aid;
+    private RecyclerView lv;
+    public ChatRoomRecycleAdapter adapter;
 
 
     @Override
@@ -42,6 +52,7 @@ public class MyPAge extends AppCompatActivity {
 
         //기본 세팅
         iv = findViewById(R.id.myimg);
+        lv = (RecyclerView)findViewById(R.id.chatroom);
         setting();
         //프로필 사진 관련
         imageButton();
@@ -58,13 +69,12 @@ public class MyPAge extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();;
         myRef = database.getReference();
 
-        myRef.child("UserInfo").child(aid).addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot snapshot) {
+            public void onDataChange(@NonNull  DataSnapshot snapshot) {
 
-                userInfo = snapshot.getValue(UserInfo.class);
-                //이미지 기본 세팅(완성)
-                System.out.println(userInfo.img);
+                DataSnapshot dsphoto = snapshot;
+                userInfo = dsphoto.child("UserInfo").child(aid).getValue(UserInfo.class);
                 if(userInfo.img != null){       //기본 자기 프로필 사진이 있다면 보여준다.
 
                     Bitmap bmp;
@@ -77,22 +87,47 @@ public class MyPAge extends AppCompatActivity {
 
                 //평점 세팅
                 //취소율 세팅
-                //채팅 리스트 세팅
 
 
+                //채팅방 세팅
+                groups_name = new ArrayList<String>();
+                DataSnapshot dsgroup = snapshot.child("Group");
+                for(DataSnapshot dsSelect : dsgroup.getChildren()){             //키 값으로 찾아 다닌다.
 
+                    for(int i = 0; i < userInfo.groups.size(); i++){            //키값이 맞는게 있는지 확인한다.
 
+                        if(dsSelect.getKey().equals(userInfo.groups.get(i).toString())){        //키 값에 맞는 것을 발견
 
+                            groups_name.add(dsSelect.getKey());     //일치하는 키값을 저장
 
+                        }
 
+                    }
+
+                }
+
+                //이제 얻은 키값으로 그룹들을 저장
+                groups = new ArrayList<>();
+                for(int j = 0; j < groups_name.size(); j++){
+
+                    groups.add(dsgroup.child(groups_name.get(j)).getValue(Group.class));
+
+                }
+
+                init();
 
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
+            public void onCancelled(@NonNull  DatabaseError error) {
 
             }
         });
+
+
+
+
+
     }//기본세팅 끝
 
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 이미지 처리 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -150,5 +185,24 @@ public class MyPAge extends AppCompatActivity {
 
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ   이미지 끝 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
+    private void init() {
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        lv.setLayoutManager(linearLayoutManager);
+
+        adapter = new ChatRoomRecycleAdapter();
+
+        for (int i = 0; i < groups.size(); i++) {      //이거 돌려야 들어간다.
+
+            adapter.addItem(groups.get(i));          //이거 해줘야 순서대로 다 들어간다.
+
+        }
+        lv.setAdapter(adapter);
+
+
+    }
 
 }
+
+
+

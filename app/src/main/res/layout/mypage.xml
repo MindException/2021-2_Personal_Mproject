@@ -311,13 +311,13 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.2"></TextView>
 
-            <ListView
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/chatroom"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="8.8"
-                android:background="#ECAD46">
-
-            </ListView>
+                android:layout_weight="8.8">
+            </androidx.recyclerview.widget.RecyclerView>
 
 
 

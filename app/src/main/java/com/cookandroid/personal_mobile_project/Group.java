@@ -12,6 +12,7 @@ public class Group {
     public int day = 0;             //출발 일
     public int start_hours = 0;     //출발 시
     public int start_minutes = 0;   //출발 분
+    public String destination = ""; //도착지 명
     //출발 위치
     public double start_x = 0;
     public double start_y = 0;

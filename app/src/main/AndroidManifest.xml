@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Personal_Mobile_Project">
-        <activity android:name=".MyPAge"></activity>
+        <activity android:name=".Chat"></activity>
+        <activity android:name=".MyPAge" />
         <activity android:name=".SignUp" />
         <activity android:name=".Login">
             <intent-filter>

@@ -45,6 +45,20 @@
 
     </Button>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"></TextView>
+
+    <Button
+        android:id="@+id/map_button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="tmap 이동 버튼">
+
+    </Button>
+
 
 
 </LinearLayout>

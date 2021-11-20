@@ -13,6 +13,8 @@ public class Group {
     public int start_hours = 0;     //출발 시
     public int start_minutes = 0;   //출발 분
     public String destination = ""; //도착지 명
+    public int cash = 0;            //총 금액
+
     //출발 위치
     public double start_x = 0;
     public double start_y = 0;

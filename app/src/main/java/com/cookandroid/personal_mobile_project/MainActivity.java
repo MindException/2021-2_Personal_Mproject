@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         moveMyPage();
         createGroup();
         joinGroup();
+        moveMap();
 
     }
 
@@ -212,6 +213,30 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
+
+
+    }
+
+    void moveMap(){
+
+        Button bt1 = (Button)findViewById(R.id.map_button);
+        bt1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //첫 번째 매개변수는 자신, 두 번째는 이동
+                Intent mapIntent = new Intent(MainActivity.this, TMap.class);
+                //이거 아래 2개 해줘야 뒤로가기 버튼 눌러도 뒤로 안가진다.
+                mapIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                mapIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //시작
+                startActivity(mapIntent);
+
+
+            }
+        });
+
+
 
 
     }

@@ -16,6 +16,21 @@ public class ChatRoomRecycleAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     private  ArrayList<Group> groupArrayList = new ArrayList<>();
 
+
+    //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ  어뎁터 눌렸울 경우 ㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+    public interface OnItemClickListener            //아이템이 눌린
+    {
+        void onItemClick(View v, int pos);
+    }
+
+    private OnItemClickListener mListener = null;  //클릭 리스너 변수
+
+    public void setOnItemClickListener(OnItemClickListener listener)
+    {
+        this.mListener = listener;
+    }
+    //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 여기까지 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -34,7 +49,6 @@ public class ChatRoomRecycleAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     @Override
     public int getItemCount() {     //들어간 아이템 개수 체크
 
-        System.out.println("어떻게 출력 되려나?"+ groupArrayList.size());
         return groupArrayList.size();
 
     }
@@ -67,9 +81,12 @@ public class ChatRoomRecycleAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 @Override
                 public void onClick(View v) {
 
-                    System.out.println("눌림");
-
-
+                    int pos = getAdapterPosition();
+                    if (pos != RecyclerView.NO_POSITION)            //눌렸을 경우
+                    {
+                        // click event
+                        mListener.onItemClick(v, pos);
+                    }
 
                 }
             });

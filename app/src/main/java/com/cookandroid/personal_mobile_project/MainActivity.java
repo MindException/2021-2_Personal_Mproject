@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     //나의 고유번호를 저장한다.
     private String mykey;
+    private String mynickname;
     private UserInfo myinfo;
     private FirebaseDatabase database;
     private DatabaseReference myRef;
@@ -42,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
-        mykey = getIntent().getStringExtra("mykey");        //자기 인덱스 키값 가져옴
+        mykey = getIntent().getStringExtra("mykey");            //자기 인덱스 키값 가져옴
+        mynickname = getIntent().getStringExtra("mynickname");  //닉네임 인덱스 키값 가져옴
         System.out.println(mykey);
         getMyinfo();
 
@@ -89,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 loginIntent.putExtra("mykey",mykey);
+                loginIntent.putExtra("mynickname", mynickname);  //자신의 닉네임을 넘긴다.
                 //시작
                 startActivity(loginIntent);
 

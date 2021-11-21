@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,8 +41,10 @@ public class MyPAge extends AppCompatActivity {
     private ArrayList<String> groups_name = new ArrayList<String>();       //이름을 임시저장
     private ArrayList<Group> groups = null;
     private String aid;
+    private String mynickname;
     private RecyclerView lv;
     public ChatRoomRecycleAdapter adapter;
+    private TextView nickTextView;
 
 
     @Override
@@ -63,7 +66,11 @@ public class MyPAge extends AppCompatActivity {
 
         //자기 인덱스 키값 가져옴
         aid = getIntent().getStringExtra("mykey");
-        System.out.println("마이페이지 에서의 키값" + aid);
+        mynickname = getIntent().getStringExtra("mynickname");  //닉네임 인덱스 키값 가져옴
+
+        //자신의 닉네임 저장
+        nickTextView = (TextView)findViewById(R.id.myname);
+        nickTextView.setText("안녕하세요!\n" + mynickname +"님");
 
         //서버에서 유저정보 가져옴
         database = FirebaseDatabase.getInstance();;
@@ -87,6 +94,9 @@ public class MyPAge extends AppCompatActivity {
 
                 //평점 세팅
                 //취소율 세팅
+
+
+
 
 
                 //채팅방 세팅
@@ -123,9 +133,6 @@ public class MyPAge extends AppCompatActivity {
 
             }
         });
-
-
-
 
 
     }//기본세팅 끝
@@ -191,6 +198,25 @@ public class MyPAge extends AppCompatActivity {
         lv.setLayoutManager(linearLayoutManager);
 
         adapter = new ChatRoomRecycleAdapter();
+        adapter.setOnItemClickListener(new ChatRoomRecycleAdapter.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(View v, int pos)
+            {
+                // 실행 내용
+                System.out.println(groups_name.get(pos));
+
+                //이제 여기다가 채팅방 이동을 넣으면 된다.
+                Intent chatIntent = new Intent(MyPAge.this,Chat.class);
+                chatIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                chatIntent.putExtra("mykey",aid);                           //자신의 키를 넘긴다.
+                chatIntent.putExtra("mygroup",groups_name.get(pos));        //그룹의 키를 넘긴다.
+                chatIntent.putExtra("mynickname", mynickname);              //자신의 닉네임을 넘긴다.
+                chatIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(chatIntent);
+
+            }
+        });
 
         for (int i = 0; i < groups.size(); i++) {      //이거 돌려야 들어간다.
 

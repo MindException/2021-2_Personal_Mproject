@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -59,6 +60,7 @@ public class MyPAge extends AppCompatActivity {
         setting();
         //프로필 사진 관련
         imageButton();
+        cancle();
 
     }
 
@@ -228,6 +230,29 @@ public class MyPAge extends AppCompatActivity {
 
     }
 
+    //취소 버튼
+    void cancle(){
+
+        ImageButton cancle = (ImageButton) findViewById(R.id.move_main);
+        cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent escapeIntent = new Intent(MyPAge.this, MainActivity.class);
+                escapeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                escapeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                escapeIntent.putExtra("mykey", aid);
+                escapeIntent.putExtra("mynickname", mynickname);
+                startActivity(escapeIntent);
+
+            }
+        });
+
+
+
+
+
+    }
 
 
 }

@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -133,10 +134,20 @@ public class Chat extends AppCompatActivity {
     public void cancleButton(){     //취소 버튼
 
         //mykey하고 mynickname이 필요하다.
+        ImageButton cancle = (ImageButton) findViewById(R.id.move_mypage);
+        cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                Intent escapeIntent = new Intent(Chat.this, MyPAge.class);
+                escapeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                escapeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                escapeIntent.putExtra("mykey", my_key);
+                escapeIntent.putExtra("mynickname", mynickname);
+                startActivity(escapeIntent);
 
-
-
+            }
+        });
 
     }
 
@@ -144,23 +155,14 @@ public class Chat extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         lv.setLayoutManager(linearLayoutManager);                   //여기가 널포인터로 뜸
-
         adapter = new ChatAdapter(mynickname);
-
         if(gp.chat == null){   //제일 처음 채팅방이 열리고 아무도 채팅을 안친경우
-
             gp.chat = new ArrayList<ChatFormat>();
-
         }
-
         for (int i = 0; i < gp.chat.size(); i++) {      //이거 돌려야 들어간다.
-
             adapter.addItem(gp.chat.get(i));          //이거 해줘야 순서대로 다 들어간다.
-
         }
         lv.setAdapter(adapter);
-
-
 
     }
 

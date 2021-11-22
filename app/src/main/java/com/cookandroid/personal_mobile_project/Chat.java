@@ -10,7 +10,10 @@ package com.cookandroid.personal_mobile_project;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -41,6 +44,11 @@ public class Chat extends AppCompatActivity {
 
     //텍스트 뷰
     EditText mychat = null;
+    RecyclerView lv = null;
+
+    //어뎁터
+    ChatAdapter adapter = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,9 +79,9 @@ public class Chat extends AppCompatActivity {
                 gp = snapshot.child("Group").child(group_key).getValue(Group.class);
                 userInfo = snapshot.child("UserInfo").child(my_key).getValue(UserInfo.class);
 
-
                 //가져온 그룹 클래스로 이제 나타낸다.(리사이클 뷰)
-
+                lv = (RecyclerView)findViewById(R.id.chatting);
+                init();
 
 
             }
@@ -109,11 +117,11 @@ public class Chat extends AppCompatActivity {
                 }
                 gp.chat.add(chatFormat);        //채팅 넣기
                 myRef.child("Group").child(group_key).setValue(gp);     //서버에 저장장
+                mychat.setText("");
 
 
 
-               //이거 이미지 없을 경우도 처리 어떻게 할지 해야한다.
-
+                //이거 이미지 없을 경우도 처리 어떻게 할지 해야한다.
 
 
             }
@@ -124,6 +132,30 @@ public class Chat extends AppCompatActivity {
 
     public void cancleButton(){     //취소 버튼
 
+
+
+
+    }
+
+    void init(){
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        lv.setLayoutManager(linearLayoutManager);                   //여기가 널포인터로 뜸
+
+        adapter = new ChatAdapter(mynickname);
+
+        if(gp.chat == null){   //제일 처음 채팅방이 열리고 아무도 채팅을 안친경우
+
+            gp.chat = new ArrayList<ChatFormat>();
+
+        }
+
+        for (int i = 0; i < gp.chat.size(); i++) {      //이거 돌려야 들어간다.
+
+            adapter.addItem(gp.chat.get(i));          //이거 해줘야 순서대로 다 들어간다.
+
+        }
+        lv.setAdapter(adapter);
 
 
 

@@ -44,9 +44,8 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
             ((ChatAdapter.ViewHolderChat)holder).onBind(cf.get(position));
             ((ViewHolderChat) holder).ltotal.setGravity(Gravity.RIGHT);
-            ((ViewHolderChat) holder).luser.setGravity(Gravity.RIGHT);
             ((ViewHolderChat) holder).ltext.setGravity(Gravity.RIGHT);
-
+            ((ViewHolderChat) holder).luser.setVisibility(View.GONE);
 
 
         }else{                                                      //동승자일 경우우
@@ -83,6 +82,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         LinearLayout ltotal;
         LinearLayout luser;
         LinearLayout ltext;
+        LinearLayout lempty;
 
         public ViewHolderChat(@NonNull View itemView) {                     //여기까지 완성
             super(itemView);
@@ -101,7 +101,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
             if(cf.img != null){         //정상적으로 프로필 사진도 있는 경우
 
-                real_chat.setText(cf.chatText);
+                real_chat.setText("  "+cf.chatText+"  ");
                 name.setText(cf.nickname);
                 //이제 여기다가 이미지 넣으면 된다.
                 Bitmap bmp;
@@ -113,7 +113,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
             }else{                      //프로필 사진이 없는 경우
 
-                real_chat.setText(cf.chatText);
+                real_chat.setText("  "+cf.chatText+"  ");
                 name.setText(cf.nickname);
 
             }

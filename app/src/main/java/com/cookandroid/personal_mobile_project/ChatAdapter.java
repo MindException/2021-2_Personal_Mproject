@@ -43,7 +43,9 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         if(cf.get(position).nickname.equals(mynickname)){           //자기 자신일 경우
 
             ((ChatAdapter.ViewHolderChat)holder).onBind(cf.get(position));
-            ((ViewHolderChat) holder).total.setGravity(Gravity.RIGHT);
+            ((ViewHolderChat) holder).ltotal.setGravity(Gravity.RIGHT);
+            ((ViewHolderChat) holder).luser.setGravity(Gravity.RIGHT);
+            ((ViewHolderChat) holder).ltext.setGravity(Gravity.RIGHT);
 
 
 
@@ -78,7 +80,9 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         TextView name;
         ImageView iv;
 
-        LinearLayout total;
+        LinearLayout ltotal;
+        LinearLayout luser;
+        LinearLayout ltext;
 
         public ViewHolderChat(@NonNull View itemView) {                     //여기까지 완성
             super(itemView);
@@ -86,7 +90,9 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             real_chat = (TextView)itemView.findViewById(R.id.real_text);
             iv = (ImageView)itemView.findViewById(R.id.userimg);
             name = (TextView)itemView.findViewById(R.id.name);
-            total = (LinearLayout)itemView.findViewById(R.id.total_layout);
+            ltotal = (LinearLayout)itemView.findViewById(R.id.total_layout);
+            luser = (LinearLayout) itemView.findViewById(R.id.user_layout);
+            ltext = (LinearLayout) itemView.findViewById(R.id.text_layout);
 
 
         }

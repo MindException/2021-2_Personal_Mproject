@@ -132,6 +132,9 @@ public class Chat extends AppCompatActivity {
 
     public void cancleButton(){     //취소 버튼
 
+        //mykey하고 mynickname이 필요하다.
+
+
 
 
 

@@ -46,6 +46,13 @@ public class MyPAge extends AppCompatActivity {
     private RecyclerView lv;
     public ChatRoomRecycleAdapter adapter;
     private TextView nickTextView;
+    //평점과 취소율
+    private TextView starsview;         //별점 평점
+    private TextView pcancleview;       //취소율
+    private TextView speople;           //평가 인원 나타냄
+    private TextView c_counts;          //탑승 완료 회수 나타냄
+    //취소율 구할 때 -------> 벌점/벌점+탑승완료 그룹 개수
+
 
 
     @Override
@@ -95,9 +102,37 @@ public class MyPAge extends AppCompatActivity {
                 }
 
                 //평점 세팅
+                //별점 평균
+                starsview = (TextView)findViewById(R.id.stars);
+                if(userInfo.stars == null || userInfo.stars.size() < 10){           //10회 미만일 경우
+
+                    starsview.setText("10회 미만입니다.");
+
+                }else{                                                              //10회 이상인경우
+
+
+
+                }
+                //별점 평가자 수
+                speople = (TextView)findViewById(R.id.stars_people);
+                speople.setText(userInfo.stars.size() + "명 평가");    //이것 때문에 다시 짜야한다.
+
+
                 //취소율 세팅
+                //여기는 실제 취소율
+                pcancleview = (TextView)findViewById(R.id.cancle_percentage);           //텍스트뷰 연결
+                if(userInfo.end_groups == null || userInfo.end_groups.size() < 10){     //10회 미만일 경우
 
 
+
+                }else{                                                              //10회 이상인경우
+
+
+
+
+                }
+                //취소율 명 수
+                c_counts = (TextView)findViewById(R.id.reserve_count);
 
 
 
